@@ -1,29 +1,42 @@
 (function() {
   var questions = [{
-    question: "Question?",
-    choices: [2, 5, 10, 15, 20],
-    correctAnswer: 2
+    question: "What is Javascript??",
+    choices: ["programming language", 
+      "coffee", "bird"],
+    correctAnswer: 1
   }, {
-    question: "Question?",
-    choices: [3, 6, 9, 12, 18],
-    correctAnswer: 4
+    question: "What does HTML stand for?",
+    choices: ["Hypertext Markup Language", 
+    "Hybrid Text Markup Language", 
+    "Hold Time Multiple Load"
+  ],
+    correctAnswer: "Hypertext Markup Language"
   }, {
-    question: "Question?",
-    choices: [72, 99, 108, 134, 156],
-    correctAnswer: 0
+    question: "What is a string in programing?",
+    choices: ["Datatype", "Shoelace", "Document"],
+    correctAnswer: "Datatype"
   }, {
-    question: "Question?",
-    choices: [4, 5, 6, 7, 8],
-    correctAnswer: 3
-  }, {
-    question: "Question?",
-    choices: [20, 30, 40, 50, 64],
-    correctAnswer: 4
-  }];
+    question: "What is a GET HTTP Method?",
+    choices: ["Used to request data", "Used to send data to update resource",
+  "Used to delete the specified resource"],
+    correctAnswer: "Used to request data"
+  },{
+    question: "What does API stand for?",
+    choices: ["Application Programming Interface", "Apply Professional Interaction",
+  "Acceptance Preference Interface"],
+    correctAnswer: "Application Programming Interface"
+  
+  }
+];
   
   var questionCounter = 0; //Tracks question number
   var selections = []; //Array containing user choices
   var quiz = $('#quiz'); //Quiz div object
+
+  function Timer()
+    {
+         alert("You are out of time!");
+    }
   
   // Display initial question
   displayNext();
@@ -33,37 +46,27 @@
     e.preventDefault();
     
     // Suspend click listener during fade animation
-    if(quiz.is(':animated')) {        
+    if(quiz.is('started')) {        
       return false;
     }
     choose();
     
     // If no user selection, progress is stopped
     if (isNaN(selections[questionCounter])) {
-      alert('Please make a selection!');
+      alert('Please answer to continue');
     } else {
       questionCounter++;
       displayNext();
     }
   });
   
-  // Click handler for the 'prev' button
-  $('#prev').on('click', function (e) {
-    e.preventDefault();
-    
-    if(quiz.is(':animated')) {
-      return false;
-    }
-    choose();
-    questionCounter--;
-    displayNext();
-  });
+ 
   
   // Click handler for the 'Start Over' button
   $('#start').on('click', function (e) {
     e.preventDefault();
     
-    if(quiz.is(':animated')) {
+    if(quiz.is(':started')) {
       return false;
     }
     questionCounter = 0;
@@ -72,14 +75,7 @@
     $('#start').hide();
   });
   
-  // Animates buttons on hover
-  $('.button').on('mouseenter', function () {
-    $(this).addClass('active');
-  });
-  $('.button').on('mouseleave', function () {
-    $(this).removeClass('active');
-  });
-  
+
   // Creates and returns the div that contains the questions and 
   // the answer selections
   function createQuestionElement(index) {
@@ -130,21 +126,9 @@
         if (!(isNaN(selections[questionCounter]))) {
           $('input[value='+selections[questionCounter]+']').prop('checked', true);
         }
+    
+      
         
-        // Controls display of 'prev' button
-        if(questionCounter === 1){
-          $('#prev').show();
-        } else if(questionCounter === 0){
-          
-          $('#prev').hide();
-          $('#next').show();
-        }
-      }else {
-        var scoreElem = displayScore();
-        quiz.append(scoreElem).fadeIn();
-        $('#next').hide();
-        $('#prev').hide();
-        $('#start').show();
       }
     });
   }
@@ -164,4 +148,32 @@
                  questions.length + ' right!!!');
     return score;
   }
-})();
+})
+()
+// 5min counter
+var time_in_minutes = 5;
+var current_time = Date.parse(new Date());
+var deadline = new Date(current_time + time_in_minutes*60*1000);
+
+
+function time_remaining(endtime){
+	var t = Date.parse(endtime) - Date.parse(new Date());
+	var seconds = Math.floor( (t/1000) % 60 );
+	var minutes = Math.floor( (t/1000/60) % 60 );
+	var hours = Math.floor( (t/(1000*60*60)) % 24 );
+	var days = Math.floor( t/(1000*60*60*24) );
+	return {'total':t, 'days':days, 'hours':hours, 'minutes':minutes, 'seconds':seconds};
+}
+function run_clock(id,endtime){
+	var clock = document.getElementById(id);
+	function update_clock(){
+		var t = time_remaining(endtime);
+		clock.innerHTML = 'Time Remaining:' +  '<br>minutes: '+t.minutes+'<br>seconds: '+t.seconds;
+		if(t.total<=0){ clearInterval(timeinterval); }
+	}
+	update_clock(); // run function once at first to avoid delay
+	var timeinterval = setInterval(update_clock,1000);
+}
+run_clock('counter',deadline);
+
+;
