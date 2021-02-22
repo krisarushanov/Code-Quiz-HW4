@@ -1,30 +1,27 @@
 <!DOCTYPE html>
 <html>
-<head>
-<script type="Javascript" src="script.js"></script>   
-<title>JavaScript Quiz</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<script type="text/javascript" src="script.js"></script>
-</head>
+	<head>
+		<title>Dynamic Quiz Project</title>
+		<link type='text/css' rel='stylesheet' href='style.css'/>
+		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open Sans"/>
+	</head>
+	<body>
+		<div id='container'>
+			<div id='title'>
+				<h1>Javascript Quiz</h1>
+			</div>
+   			<br/>
+  			<div id='quiz'></div>
+    		<div class='button' id='next'><a href='#'>Next</a></div>
+    		<div class='button' id='prev'><a href='#'>Go Back</a></div>
+    		<div class='button' id='start'> <a href='#'>Start Over</a></div>
+    		<!-- <button class='' id='next'>Next</a></button>
+    		<button class='' id='prev'>Prev</a></button>
+    		<button class='' id='start'> Start Over</a></button> -->
+    	</div>
 
-<body>
-    <h1> Javascript Quiz</h1>
-    <div class="container">
-        <div id="quiz-container" class="hide">
-            <div id="questions">Question</div>
-            <div id="answerButtons">
-                <button class="button">Answer 1</button>
-                <button class="button">Answer 2</button>
-                <button class="button">Answer 3</button>
-            </div>
-        </div>           
-         <div>
-         <button id="startButton">Start your Quiz</button>   
-         <button id="nextButton" class="hide">Next Question</button> 
-         </div>
-    </div>
-
-</div>    
-<script type="text/javascript" src="script.js" ></script>
-</body>
+		<script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+		
+		<script type='text/javascript' src='script.js'></script>
+	</body>
 </html>
